@@ -18,15 +18,17 @@ def generate_request():
 
 
 def process_request():
-    application = queue.get()
-    print(f"(-) Application processed: {application}\n")
+    if queue.empty():
+        print("  >> The queue is empty\n")
+    else:
+        application = queue.get()
+        print(f"(-) Application processed: {application}\n")
 
 
 print('\nPress "Ctrl + C" to exit ... \n')
 while True:
     time.sleep(3)
-    for i in range(0, random.randint(0, 3)):
+    for i in range(0, random.randint(0, 1)):
         generate_request()
-    if not queue.empty():
-        process_request()
+    process_request()
     print(f"  >> The queue contains {queue.qsize()} applications\n")
